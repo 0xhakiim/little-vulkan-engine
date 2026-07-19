@@ -7,7 +7,7 @@
 namespace lve
 {
 	struct Transform2dComponent {
-		glm::vec3 translation{};
+		glm::vec2 translation{};
 		glm::vec2 scale{ 1.f, 1.f };
 		float rotation;
 		glm::mat2 mat2() {
@@ -25,11 +25,15 @@ namespace lve
 		};
 		
 	};
+	struct RigidBody2dComponent {
+		glm::vec2 velocity;
+		float mass{ 1.0f };
+	};
 	class LveGameObject
 	{
 	public:
 		using id_t = unsigned int;
-
+		 
 		LveGameObject(const LveGameObject&) = delete;
 		LveGameObject& operator=(const LveGameObject&) = delete;
 		LveGameObject(LveGameObject&&) = default;
@@ -44,6 +48,7 @@ namespace lve
 		glm::vec3 position{};
 		glm::vec3 color{};
 		Transform2dComponent transform2d{};
+		RigidBody2dComponent rigidBody2d{};
 	private:
 		id_t id{ 0 };
 		LveGameObject(id_t objId) : id{ objId } {};
