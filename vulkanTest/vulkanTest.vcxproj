@@ -139,7 +139,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lve_device.cpp" />
     <ClCompile Include="simple_render_system.cpp" />
-    <ClCompile Include="two_bodies_simulation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_app.hpp" />
@@ -151,7 +150,6 @@
     <ClInclude Include="lve_window.hpp" />
     <ClInclude Include="lve_device.hpp" />
     <ClInclude Include="simple_render_system.hpp" />
-    <ClInclude Include="two_bodies_simulation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="compile.bat" />

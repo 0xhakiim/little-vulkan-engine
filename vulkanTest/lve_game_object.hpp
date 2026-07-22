@@ -1,32 +1,28 @@
 #pragma once
 #include "lve_model.hpp"
 
-
+//libs
+#include <glm/gtc/matrix_transform.hpp>
 //std
 #include <memory>
 namespace lve
 {
-	struct Transform2dComponent {
-		glm::vec2 translation{};
-		glm::vec2 scale{ 1.f, 1.f };
-		float rotation;
-		glm::mat2 mat2() {
-			const float s = sin(rotation);
-			const float c = cos(rotation);
-			glm::mat2 rotationMat{
-				{c, s},
-				{-s, c}
-			};
-			glm::mat2 scaleMat{
-				{scale.x, 0.f},
-				{0.f, scale.y}
-			};
-			return rotationMat * scaleMat;
+	struct TransformComponent {
+		glm::vec3 translation{};
+		glm::vec3 scale{ 1.f, 1.f, 1.f };
+		glm::vec3 rotation;
+		glm::mat4 mat4() {
+			auto transform = glm::translate(glm::mat4{ 1.f }, translation);
+			transform = glm::scale(transform, scale);
+			transform = glm::rotate(transform, rotation.y,{0.f ,1.f,0.f});
+			transform = glm::rotate(transform, rotation.x,{1.f ,0.f,0.f});
+			transform = glm::rotate(transform, rotation.z,{0.f ,0.f,1.f});
+			return transform;
 		};
 		
 	};
 	struct RigidBody2dComponent {
-		glm::vec2 velocity;
+		glm::vec3 velocity;
 		float mass{ 1.0f };
 	};
 	class LveGameObject
@@ -34,10 +30,7 @@ namespace lve
 	public:
 		using id_t = unsigned int;
 		 
-		LveGameObject(const LveGameObject&) = delete;
-		LveGameObject& operator=(const LveGameObject&) = delete;
-		LveGameObject(LveGameObject&&) = default;
-		LveGameObject& operator=(LveGameObject&&) = default;
+		
 		static LveGameObject createGameObject() {
 			static LveGameObject::id_t currentId = 0;
 			return LveGameObject{ currentId++ };
@@ -47,7 +40,7 @@ namespace lve
 		std::shared_ptr<LveModel> model{};
 		glm::vec3 position{};
 		glm::vec3 color{};
-		Transform2dComponent transform2d{};
+		TransformComponent transform2d{};
 		RigidBody2dComponent rigidBody2d{};
 	private:
 		id_t id{ 0 };

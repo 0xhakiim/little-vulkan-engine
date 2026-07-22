@@ -31,7 +31,7 @@ namespace lve {
 		
 		
 		
-		void sierpinski(std::vector<LveModel::Vertex>& vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top);
+		void sierpinski(std::vector<LveModel::Vertex>& vertices, int depth, glm::vec3 left, glm::vec3 right, glm::vec3 top);
 	protected:
 		LveWindow lveWindow{ WIDTH, HEIGHT, "Hello Vulkan!" };
 		LveDevice lveDevice{ lveWindow };
